@@ -3,8 +3,8 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Alerts from "./components/alerts";
 import Textarea from "./components/TextArea";
-import About from "./components/about";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import About from "./components/about";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // import { createBrowserRouter, RouterProvider} from "react-router-dom"; // Correct import
 
@@ -107,7 +107,7 @@ function App() {
 
       {/* </Router> */}
 
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
         <Navbar
           title="Text Conversion"
           mode={mode}
@@ -117,22 +117,18 @@ function App() {
           handleColorMode={handleColorMode}
         />
         <Alerts alert={alert} showAlert={showAlert} />
-        <Routes>
-          <Route
-            path="/"
-            element={
+    
               <Textarea
                 Heading="Enter the Text To Analyze below"
                 mode={mode}
                 showAlert={showAlert}  
                 
               />
-            }
-          />
-          <Route path="/about" element={<About/>} />
-        </Routes>
+            
+          {/* <Route path="/about" element={<About/>} /> */}
+        {/* </Routes> */}
       
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
     </>
   );
 }
