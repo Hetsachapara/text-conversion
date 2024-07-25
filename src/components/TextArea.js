@@ -45,6 +45,16 @@ const handleCopyclick = ()=>{
  }
 }
 
+const handleSpeech = ()=>{
+  if (text) {
+    const speechSynthesis = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+   }
+   else{
+    props.showAlert("Textarea is empty!", "warning"); 
+   }
+}
 
 
 const handelOnchange = (event)=> {
@@ -77,6 +87,7 @@ const handleEmptySpace = () => {
         <button type="button" className="btn btn-primary mx-3" onClick={handleClearclick}>Clear text</button>
         <button type="button" className="btn btn-primary mx-3 my-3" onClick={handleCopyclick}>Copy</button>
         <button type="button" className="btn btn-primary mx-3 my-3" onClick={handleEmptySpace}>Remove Extraspaces</button>
+        <button type="button" className="btn btn-primary mx-3 my-3" onClick={handleSpeech}>Speech</button>
     </div>
     </div>
 
@@ -90,7 +101,7 @@ const handleEmptySpace = () => {
     "The textarea is empty."
   ) : (
     <>
-      {text.split(" ").length} Words and {text.length} characters.
+      {text.split(" ").filter((element)=>{return element.length!==0}).length} Words and {text.length} characters.
     </>
   )}
 </p>
@@ -98,7 +109,7 @@ const handleEmptySpace = () => {
 
 
 
-      <p>{0.008 * text.split(" ").length}Minutes to Read.</p>
+      <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length}Minutes to Read.</p>
       <h3>Preview</h3>
       <p>{text.length>0?text:"enter somethig above textarea to preview"}</p>
     </div>

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Alerts from "./components/alerts";
 import Textarea from "./components/TextArea";
-// import About from "./components/about";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// import { createBrowserRouter, RouterProvider} from "react-router-dom"; // Correct import
+import About from "./components/about";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -17,7 +15,7 @@ function App() {
   const showAlert = (message, type) => {
     setAlert({
       msg: message,
-      type: type, // 'Type' should be 'type' in lowercase
+      type: type,
     });
     setTimeout(() => {
       setAlert(null);
@@ -43,39 +41,10 @@ function App() {
   const handleColorMode = (v) => {
     setcustomColor(v.target.value);
   };
-  // const router = createBrowserRouter([
-  //   {
-  //     path : "/",
-  //     element: <><Navbar
-  //     title="Text Conversion"
-  //     mode={mode}
-  //     toggleMode={toggleMode}
-  //     text={text}
-  //     handleColorMode={handleColorMode}
-  //   />
-  //    <Textarea
-  //           Heading="Enter the Text To Analyze below"
-  //           mode={mode}
-  //           showAlert={showAlert}
-  //         />
-  //         <Alerts alert={alert} />
-  //   </>
-  //   },
-  //   {
-  //     path: "/about",
-  //     element: <About/>
-  //   }
-  // ])
 
   return (
-    <>
-      {/* <Router> */}
-
-      {/* <Switch> */}
-
-      {/* <BrowserRouter>
-      <Routes>
-        <Route path="/" element={   <Navbar
+    <Router>
+      <Navbar
         title="Text Conversion"
         mode={mode}
         toggleMode={toggleMode}
@@ -83,53 +52,21 @@ function App() {
         customColor={customColor}
         handleColorMode={handleColorMode}
       />
-      <Alerts alert={alert} showAlert={showAlert}/>
-        <Textarea
-          Heading="Enter the Text To Analyze below"
-          mode={mode}
-          showAlert={showAlert}
-        /> }>
-          <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-         
-          </Route>
-        {/* </Switch> */}
-
-      {/* </Router> */}
-
-      {/* <BrowserRouter> */}
-        <Navbar
-          title="Text Conversion"
-          mode={mode}
-          toggleMode={toggleMode}
-          text={text}
-          customColor={customColor}
-          handleColorMode={handleColorMode}
+      <Alerts alert={alert} showAlert={showAlert} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Textarea
+              Heading="Enter the Text To Analyze below"
+              mode={mode}
+              showAlert={showAlert}
+            />
+          }
         />
-        <Alerts alert={alert} showAlert={showAlert} />
-    
-              <Textarea
-                Heading="Enter the Text To Analyze below"
-                mode={mode}
-                showAlert={showAlert}  
-                
-              />
-            
-          {/* <Route path="/about" element={<About/>} /> */}
-        {/* </Routes> */}
-      
-      {/* </BrowserRouter> */}
-    </>
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
   );
 }
 
