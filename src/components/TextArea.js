@@ -71,23 +71,39 @@ export default function TextArea(props) {
   const handleSpeechToText = () => {
     if (!isListening) {
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = 'en-US';
+      recognition.lang = navigator.language || 'en-US'; // Set recognition to browser's preferred language
       recognition.start();
       setIsListening(true);
-
+  
+      let timeout = setTimeout(() => {
+        recognition.stop();
+        setIsListening(false);
+        props.showAlert('No speech detected.', 'warning');
+      }, 5000);
+  
       recognition.onresult = (event) => {
+        clearTimeout(timeout);
         const speechResult = event.results[0][0].transcript;
         setText(text + " " + speechResult);
         setIsListening(false);
-        // props.showAlert('Speech converted to text!', 'success');
+        props.showAlert('Speech converted to text!', 'success');
       };
-
+  
       recognition.onerror = (event) => {
+        clearTimeout(timeout);
         setIsListening(false);
         props.showAlert('Speech recognition error: ' + event.error, 'danger');
       };
+  
+      recognition.onspeechend = () => {
+        clearTimeout(timeout);
+        recognition.stop();
+        setIsListening(false);
+      };
     }
-  }
+  };
+  
+  
 
   return (
     <>
